@@ -1,11 +1,12 @@
 {
   "design": {
-    "id": "e22f0adb-9783-453d-8cdf-c61c776774b7",
-    "name": "병렬 핀 내적 가속기 N8 · 3단 파이프라인 · 재구성 booth",
+    "id": "b26e52f8-b8a4-4fb7-8a90-2c88880553d4",
+    "name": "병렬 핀 내적 가속기 N8 · CHAIN · 재구성 booth_noalumacc",
     "kind": "uart_dot",
     "params": {
       "acc_width": 20,
       "architecture": "sequential",
+      "chain": true,
       "clock_mhz": 50.0,
       "control_style": "global",
       "depth": 8,
@@ -27,29 +28,29 @@
       "sum_structure": "legacy",
       "width": 8
     },
-    "code_hash": "0a5ca5617f8e2e326934d0c9d88148b84237cf1e4d940d695947a4e9f42711cd",
+    "code_hash": "ea7c96a8c4ec67cbfd3f62532ab47d3fb8d30584e5ff5abe05df19766c8795d6",
     "reference_version": "reference-1.0"
   },
   "seed": 42,
   "fit": {
-    "design_id": "e22f0adb-9783-453d-8cdf-c61c776774b7",
-    "top_module": "tt_um_joonsense_pin_dot_e22f0adb",
-    "area_um2": 4822.1248,
-    "cells": 571,
-    "flops": 73,
-    "pre_slack_ss_ns": 1.7071,
+    "design_id": "b26e52f8-b8a4-4fb7-8a90-2c88880553d4",
+    "top_module": "tt_um_joonsense_pin_dot_b26e52f8",
+    "area_um2": 6333.5744,
+    "cells": 806,
+    "flops": 105,
+    "pre_slack_ss_ns": 8.5646,
     "yosys": "Yosys 0.69+post (git sha1 143eb14f9cc55d6f8927e68523b0c9d2166ed02c, Release, AppleClang clang++ 21.0.0.21000334)",
     "tiles": "1x1",
     "tile_count": 1,
     "fits": true,
-    "utilization": 0.5025118302049923,
+    "utilization": 0.6335023571607865,
     "utilization_range": [
-      0.46351183020499237,
-      0.5695118302049924
+      0.5945023571607865,
+      0.7005023571607865
     ],
     "boundary": false,
     "price_eur": 70,
-    "timing_verdict": "boundary",
+    "timing_verdict": "meets",
     "tile_budget_um2": 7723.9506226388685,
     "price_eur_per_tile": 70,
     "scope": "sky130_fd_sc_hd TT 1.8V 25°C 배치 전 Yosys 표준셀 면적 + Tiny Tapeout 핀 래퍼. 예측 사용률 = (1.4294×추정 면적 + 0.0846×코어 면적) ÷ 코어 면적, 오차 -3.9~+6.7%p, 상한 82.1% (레이아웃 실측 13점). boundary 면 레이아웃 실측으로 확정. 배치배선 성공·타이밍·가격 확정이 아닙니다. 실측 실패는 모두 50MHz ss 셋업 타이밍이었습니다."

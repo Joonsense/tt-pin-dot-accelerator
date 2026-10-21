@@ -119,3 +119,60 @@ async def test_host_driver_against_rtl(dut):
     assert results == [expected for _, expected in CASES], f"{results}"
     assert chip.cycles <= len(CASES) * INTERVAL + NBYTES + 4, f"드라이버 사이클 {chip.cycles}"
     assert await bridge(chip.abort)(), "드라이버 ABORT 뒤 ERR 없음"
+
+
+CHAIN_GROUPS = [[[-94, -49, 48, 104, 83, -105, -72, -16, 37, 18, -103, 62, -106, 76, 13, -113], [-1, 76, -58, -102, -79, 83, 88, -23, 64, -95, 39, 2, 55, 35, 9, -59], [121, 9, -15, -117, 39, -52, 2, -123, 95, -26, 122, -85, 127, 27, 66, -96]], [[127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127], [127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127], [127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127], [127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127], [127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127]], [[-101, 90, 63, 24, -99, 118, 95, -47, 39, 5, -91, 97, 115, 46, -30, -75]], [[-128, 127, -128, 127, -128, 127, -128, 127, -128, 127, -128, 127, -128, 127, -128, 127], [-76, 80, 80, 45, 124, -124, 105, -37, -82, 62, -92, 56, -10, -76, -4, -69]]]
+CHAIN_WANT = [-35736, 524287, -24817, -160989]
+
+
+@cocotb.test()
+async def test_chain_any_length(dut):
+    await reset(dut)
+    got = []
+
+    async def reader():
+        raw, count = 0, 0
+        while True:
+            await FallingEdge(dut.clk)
+            if pin(dut, 5):
+                raw |= dut.uo_out.value.to_unsigned() << (8 * count)
+                count += 1
+                if count == NBYTES:
+                    got.append(signed(raw, WIDTH))
+                    raw, count = 0, 0
+
+    await FallingEdge(dut.clk)
+    cocotb.start_soon(reader())
+    for group in CHAIN_GROUPS:
+        for index, stream in enumerate(group):
+            chain = 0b1000 if index < len(group) - 1 else 0
+            position = 0
+            while position < len(stream):
+                dut.ui_in.value = stream[position] & 0xFF
+                dut.uio_in.value = 0b101 | chain
+                await Timer(1, unit="us")
+                ready = pin(dut, 4)
+                await FallingEdge(dut.clk)
+                if ready:
+                    position += 1
+    dut.uio_in.value = 0b100
+    for _ in range(4 * NBYTES + 8):
+        await FallingEdge(dut.clk)
+    assert got == CHAIN_WANT, f"{got} != {CHAIN_WANT}"
+
+
+@cocotb.test()
+async def test_host_long_dot_against_rtl(dut):
+    """호스트 드라이버 long_dot (N 개씩 잘라 CHAIN) 을 RTL 에 붙여 길이 1·7·100·784 내적을 확인한다."""
+    import random
+    await reset(dut)
+    await FallingEdge(dut.clk)
+    chip = pin_client.PinDot(CocotbPort(dut), N, WIDTH)
+    rng = random.Random(42)
+    lim = (1 << (WIDTH - 1)) - 1
+    for length in (1, 7, 100, 784):
+        a = [rng.randint(-128, 127) for _ in range(length)]
+        b = [rng.randint(-128, 127) for _ in range(length)]
+        want = max(-lim - 1, min(lim, sum(x * y for x, y in zip(a, b))))
+        got = await bridge(chip.long_dot)(a, b)
+        assert got == want, f"길이 {length}: {got} != {want}"

@@ -1,4 +1,4 @@
-# Tiny Tapeout project information (chip-lab export, design e22f0adb-9783-453d-8cdf-c61c776774b7)
+# Tiny Tapeout project information (chip-lab export, design b26e52f8-b8a4-4fb7-8a90-2c88880553d4)
 project:
   title:        "Parallel-pin INT8 dot product accelerator N=8, 1 byte/clock"
   author:       "Kai Kim"
@@ -9,7 +9,7 @@ project:
 
   tiles: "1x1"
 
-  top_module:  "tt_um_joonsense_pin_dot_e22f0adb"
+  top_module:  "tt_um_joonsense_pin_dot_b26e52f8"
 
   source_files:
     - "core.v"
@@ -35,7 +35,7 @@ pinout:
   uio[0]: "IN_VALID"
   uio[1]: "ABORT"
   uio[2]: "OUT_READY"
-  uio[3]: ""
+  uio[3]: "CHAIN"
   uio[4]: "IN_READY"
   uio[5]: "OUT_VALID"
   uio[6]: "BUSY"

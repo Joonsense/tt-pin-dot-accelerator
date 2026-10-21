@@ -1,0 +1,12 @@
+{
+ "samples": 360,
+ "dot_products": 3600,
+ "mismatches": 0,
+ "chip_accuracy": 0.9583333333333334,
+ "int8_accuracy_python": 0.9583333333333334,
+ "float_accuracy": 0.9583333333333334,
+ "cycles": 482400,
+ "version": "b26e52f8-b8a4-4fb7-8a90-2c88880553d4",
+ "simulator": "icarus RTL",
+ "passed": true
+}

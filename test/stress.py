@@ -162,3 +162,51 @@ async def abort_right_after_last_byte_completes(dut):
         await t.abort()
         await t.drain(before + 1)
         assert t.got[-1] == ref(a, b), f"{t.got[-1]} != {ref(a, b)}"
+
+
+CHAIN = 8   # uio[3]
+
+
+def chained(self_test_module):
+    return hasattr(self_test_module, 'CHAIN_GROUPS')
+
+
+import test as _exported   # noqa: E402
+
+
+@cocotb.test(skip=not chained(_exported))
+async def chain_random_lengths_gaps_backpressure(dut):
+    """CHAIN 묶음 길이 1~40 벡터(최대 320쌍), 입력 공백·출력 역압력 무작위. 큰 묶음은 결과 포화도 일으킨다."""
+    t = Bench(dut, 41)
+    t.stall = 0.3
+    await t.start()
+    want = []
+    for _ in range(25):
+        group = [t.rand() for _ in range(t.rng.randint(1, 40))]
+        total = sum(x * y for a, b in group for x, y in zip(a, b))
+        lim = (1 << (WIDTH - 1)) - 1
+        want.append(max(-lim - 1, min(lim, total)))
+        for index, (a, b) in enumerate(group):
+            t.ctrl = (t.ctrl | CHAIN) if index < len(group) - 1 else (t.ctrl & ~CHAIN)
+            await t.vector(a, b, gap=0.25)
+        t.ctrl &= ~CHAIN
+    await t.drain(len(want))
+    assert t.got == want, f"불일치 {sum(g != w for g, w in zip(t.got, want))}건"
+
+
+@cocotb.test(skip=not chained(_exported))
+async def chain_abort_discards_carried_sum(dut):
+    t = Bench(dut, 43)
+    await t.start()
+    for _ in range(10):
+        for _ in range(t.rng.randint(1, 4)):      # 이어 가던 벡터들
+            a, b = t.rand()
+            t.ctrl |= CHAIN
+            await t.vector(a, b)
+        t.ctrl &= ~CHAIN
+        assert await t.abort(), "ABORT 뒤 ERR 없음"
+        before = len(t.got)
+        a, b = t.rand()
+        await t.vector(a, b)
+        await t.drain(before + 1)
+        assert t.got[-1] == ref(a, b), f"ABORT 뒤 이어 온 합이 남음: {t.got[-1]} != {ref(a, b)}"
