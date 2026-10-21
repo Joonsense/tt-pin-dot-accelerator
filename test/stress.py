@@ -1,4 +1,4 @@
-# chip-lab 게이트 수준 스트레스 (병렬 핀판). 제출 저장소 기본 시험과 별도, 측정 브랜치에서만 돈다.
+# chip-lab 게이트 수준 스트레스 (병렬 핀판). 내보낸 프로젝트의 test/ 에 stress.py 로 복사하고 Makefile 의 COCOTB_TEST_MODULES 에 stress 를 더해 쓴다.
 import random
 
 import cocotb

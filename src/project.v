@@ -15,7 +15,7 @@
  */
 `default_nettype none
 
-module tt_um_joonsense_uart_dot_e22f0adb (
+module tt_um_joonsense_pin_dot_e22f0adb (
     input  wire [7:0] ui_in,
     output wire [7:0] uo_out,
     input  wire [7:0] uio_in,
@@ -28,7 +28,7 @@ module tt_um_joonsense_uart_dot_e22f0adb (
   wire in_ready, out_valid, busy, err_seen;
   wire [2:0] count;
 
-  tt_um_joonsense_uart_dot_e22f0adb_core core (.clk(clk), .rst(!rst_n), .in_valid(uio_in[0]), .in_data(ui_in), .abort(uio_in[1]), .out_ready(uio_in[2]),
+  tt_um_joonsense_pin_dot_e22f0adb_core core (.clk(clk), .rst(!rst_n), .in_valid(uio_in[0]), .in_data(ui_in), .abort(uio_in[1]), .out_ready(uio_in[2]),
       .in_ready(in_ready), .out_valid(out_valid), .out_data(uo_out), .busy(busy), .err_seen(err_seen), .count(count));
 
   assign uio_out = {err_seen, busy, out_valid, in_ready, 4'b0000};

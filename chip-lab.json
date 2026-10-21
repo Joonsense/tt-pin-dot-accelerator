@@ -33,7 +33,7 @@
   "seed": 42,
   "fit": {
     "design_id": "e22f0adb-9783-453d-8cdf-c61c776774b7",
-    "top_module": "tt_um_joonsense_uart_dot_e22f0adb",
+    "top_module": "tt_um_joonsense_pin_dot_e22f0adb",
     "area_um2": 4822.1248,
     "cells": 571,
     "flops": 73,
