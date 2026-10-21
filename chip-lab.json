@@ -1,0 +1,64 @@
+{
+  "design": {
+    "id": "e22f0adb-9783-453d-8cdf-c61c776774b7",
+    "name": "병렬 핀 내적 가속기 N8 · 3단 파이프라인 · 재구성 booth",
+    "kind": "uart_dot",
+    "params": {
+      "acc_width": 20,
+      "architecture": "sequential",
+      "clock_mhz": 50.0,
+      "control_style": "global",
+      "depth": 8,
+      "depths": [],
+      "divisor": 8,
+      "fault": false,
+      "fifo_style": "wide",
+      "intermediate_policy": "wide64",
+      "io": "parallel",
+      "lanes": 4,
+      "mac_pipeline": true,
+      "mac_style": "parallel",
+      "message": "abc",
+      "n": 8,
+      "operand_order": "interleaved",
+      "overflow": "saturate",
+      "stream_stages": 2,
+      "sum_pipeline_levels": [],
+      "sum_structure": "legacy",
+      "width": 8
+    },
+    "code_hash": "0a5ca5617f8e2e326934d0c9d88148b84237cf1e4d940d695947a4e9f42711cd",
+    "reference_version": "reference-1.0"
+  },
+  "seed": 42,
+  "fit": {
+    "design_id": "e22f0adb-9783-453d-8cdf-c61c776774b7",
+    "top_module": "tt_um_joonsense_uart_dot_e22f0adb",
+    "area_um2": 4822.1248,
+    "cells": 571,
+    "flops": 73,
+    "pre_slack_ss_ns": 1.7071,
+    "yosys": "Yosys 0.69+post (git sha1 143eb14f9cc55d6f8927e68523b0c9d2166ed02c, Release, AppleClang clang++ 21.0.0.21000334)",
+    "tiles": "1x1",
+    "tile_count": 1,
+    "fits": true,
+    "utilization": 0.5025118302049923,
+    "utilization_range": [
+      0.46351183020499237,
+      0.5695118302049924
+    ],
+    "boundary": false,
+    "price_eur": 70,
+    "timing_verdict": "boundary",
+    "tile_budget_um2": 7723.9506226388685,
+    "price_eur_per_tile": 70,
+    "scope": "sky130_fd_sc_hd TT 1.8V 25°C 배치 전 Yosys 표준셀 면적 + Tiny Tapeout 핀 래퍼. 예측 사용률 = (1.4294×추정 면적 + 0.0846×코어 면적) ÷ 코어 면적, 오차 -3.9~+6.7%p, 상한 82.1% (레이아웃 실측 13점). boundary 면 레이아웃 실측으로 확정. 배치배선 성공·타이밍·가격 확정이 아닙니다. 실측 실패는 모두 50MHz ss 셋업 타이밍이었습니다."
+  },
+  "template": {
+    "source": "https://github.com/TinyTapeout/ttsky-verilog-template",
+    "commit": "a42e6662fab316e93b4e26399e21d41664a460b7",
+    "fetched": "2026-10-21",
+    "license": "Apache-2.0",
+    "note": "info.yaml, src/project.v, test/tb.v, test/test.py, test/Makefile, docs/info.md 는 backend/tinytapeout.py 가 생성한다."
+  }
+}

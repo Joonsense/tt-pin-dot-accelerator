@@ -1,0 +1,44 @@
+# Tiny Tapeout project information (chip-lab export, design e22f0adb-9783-453d-8cdf-c61c776774b7)
+project:
+  title:        "Parallel-pin INT8 dot product accelerator N=8, one byte per "
+  author:       "Kai Kim"
+  discord:      ""
+  description:  "Parallel-pin INT8 dot product accelerator N=8, one byte per clock (chip-lab verified)"
+  language:     "Verilog"
+  clock_hz:     0
+
+  tiles: "1x1"
+
+  top_module:  "tt_um_joonsense_uart_dot_e22f0adb"
+
+  source_files:
+    - "core.v"
+    - "project.v"
+
+pinout:
+  ui[0]: "IN_DATA0"
+  ui[1]: "IN_DATA1"
+  ui[2]: "IN_DATA2"
+  ui[3]: "IN_DATA3"
+  ui[4]: "IN_DATA4"
+  ui[5]: "IN_DATA5"
+  ui[6]: "IN_DATA6"
+  ui[7]: "IN_DATA7"
+  uo[0]: "OUT_DATA0"
+  uo[1]: "OUT_DATA1"
+  uo[2]: "OUT_DATA2"
+  uo[3]: "OUT_DATA3"
+  uo[4]: "OUT_DATA4"
+  uo[5]: "OUT_DATA5"
+  uo[6]: "OUT_DATA6"
+  uo[7]: "OUT_DATA7"
+  uio[0]: "IN_VALID"
+  uio[1]: "ABORT"
+  uio[2]: "OUT_READY"
+  uio[3]: ""
+  uio[4]: "IN_READY"
+  uio[5]: "OUT_VALID"
+  uio[6]: "BUSY"
+  uio[7]: "ERR"
+
+yaml_version: 6
