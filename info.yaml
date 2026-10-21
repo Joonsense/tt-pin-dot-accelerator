@@ -1,6 +1,6 @@
 # Tiny Tapeout project information (chip-lab export, design e22f0adb-9783-453d-8cdf-c61c776774b7)
 project:
-  title:        "Parallel-pin INT8 dot product accelerator N=8, one byte per"
+  title:        "Parallel-pin INT8 dot product accelerator N=8, 1 byte/clock"
   author:       "Kai Kim"
   discord:      ""
   description:  "Parallel-pin INT8 dot product accelerator N=8, one byte per clock (chip-lab verified)"
