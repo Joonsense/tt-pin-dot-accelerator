@@ -1,5 +1,7 @@
 # INT8 dot products of any length, one byte per clock, in one Tiny Tapeout tile
 
+> Newer version: [tt-int4-dot-accelerator](https://github.com/Joonsense/tt-int4-dot-accelerator), 2 INT4 MAC per clock in the same tile. [Draw a digit in the browser demo](https://joonsense.github.io/tt-int4-dot-accelerator/).
+
 ![GDS render of the sky130 layout](docs/gds_render.png)
 
 A signed INT8 dot product accelerator for a single 1x1 [Tiny Tapeout](https://tinytapeout.com) tile (SkyWater sky130),
